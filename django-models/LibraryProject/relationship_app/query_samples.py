@@ -1,17 +1,24 @@
-from relationship_app.models import Library, Librarian
+from relationship_app.models import Author, Book, Library, Librarian
 
-# Retrieve the librarian for a specific library
-def get_librarian_for_library(library_id):
+# Query all books by a specific author
+def books_by_author(author_name):
+    author = Author.objects.get(name=author_name)
+    return Book.objects.filter(author=author)
+
+# List all books in a library
+def books_in_library(library_name):
+    library = Library.objects.get(name=library_name)
+    return library.books.all()
+
+# Retrieve the librarian for a library
+def librarian_for_library(library_name):
     try:
-        library = Library.objects.get(id=library_id)
+        library = Library.objects.get(name=library_name)
         librarian = Librarian.objects.get(library=library)
         return librarian
     except Library.DoesNotExist:
-        print("Library not found")
+        print(f"Library with name '{library_name}' does not exist.")
+        return None
     except Librarian.DoesNotExist:
-        print("No librarian assigned to this library")
-
-# Example Usage: Retrieve librarian for library with ID 1
-librarian = get_librarian_for_library(1)
-if librarian:
-    print(f"Librarian for library: {librarian.name}")
+        print(f"No librarian assigned to the library '{library_name}'.")
+        return None
