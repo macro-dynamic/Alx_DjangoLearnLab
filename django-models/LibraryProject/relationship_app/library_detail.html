@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Library Detail</title>
-</head>
-<body>
-    <h1>Library: {{ library.name }}</h1>
-    <h2>Books in Library:</h2>
-    <ul>
-        {% for book in library.books.all %}
-        <li>{{ book.title }} by {{ book.author.name }} (Published {{ book.publication_year }})</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+from django.views.generic import DetailView
+from relationship_app.models import Library
 
+# Class-based view for displaying library details
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'relationship_app/library_detail.html'  # Ensure the template path is correct
+    context_object_name = 'library'  # To access the library object in the template
