@@ -1,6 +1,5 @@
-# relationship_app/views.py
 from django.shortcuts import render
-from django.views.generic.detail import DetailView  # Correct import for DetailView
+from django.views.generic.detail import DetailView  # This is the correct import for DetailView
 from .models import Book, Library  # Ensure that Book and Library models are correctly imported
 
 # Function-based view to list all books
